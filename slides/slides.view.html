@@ -1,0 +1,167 @@
+﻿<style>
+    .slides {
+        -webkit-transition:all 0.5s ease 0s;
+        -moz-transition:all 0.5s ease 0s;
+        -o-transition:all 0.5s ease 0s;
+        transition:all 0.5s ease 0s;
+        display:block;
+        width:100%;
+        height:250px;
+        border-style:solid;
+        border-width:5px;
+        border-color:#3F51B5;
+        border-radius:10px;
+        opacity:0.8;
+        margin-bottom:50px;
+    }
+        .slides:hover {
+            opacity:1;
+            border-radius:0px;
+        }
+        .slides img {
+            width:100%;
+            height:100%;
+            user-drag: none; 
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        .slides .arrow-left {
+            -webkit-transition:all 0.5s ease 0s;
+            -moz-transition:all 0.5s ease 0s;
+            -o-transition:all 0.5s ease 0s;
+            transition:all 0.5s ease 0s;
+            opacity:0.3;
+            position:relative;
+            bottom:60%;
+            float:left;
+            width:0px;
+            height:0px;
+            border-top:10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right:10px solid #3F51B5;
+        }
+        .slides .arrow-right {
+            -webkit-transition:all 0.5s ease 0s;
+            -moz-transition:all 0.5s ease 0s;
+            -o-transition:all 0.5s ease 0s;
+            transition:all 0.5s ease 0s;
+            opacity:0.3;
+            position:relative;
+            bottom:60%;
+            float:right;
+            width: 0; 
+    	    height: 0; 
+	        border-top: 10px solid transparent;
+	        border-bottom: 10px solid transparent;
+	        border-left: 10px solid #3F51B5;
+        }
+            .slides .arrow-right:hover {
+                border-top: 10px solid transparent;
+	            border-bottom: 10px solid transparent;
+	            border-left: 10px solid #534f4f;
+                box-shadow:  0 0 20px  rgba(0,0,0,0.6);
+			    -moz-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+			    -webkit-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+			    -o-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+            }
+            .slides .arrow-left:hover {
+                border-top:10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-right:10px solid #534f4f;
+                box-shadow:  0 0 20px  rgba(0,0,0,0.6);
+			    -moz-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+			    -webkit-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+			    -o-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+            }
+        .slides:hover .arrow-right {
+            opacity:1;
+        }
+        .slides:hover .arrow-left {
+            opacity:1;
+        }
+        .slides .info {
+            -webkit-transition:all 0.5s ease 0s;
+            -moz-transition:all 0.5s ease 0s;
+            -o-transition:all 0.5s ease 0s;
+            transition:all 0.5s ease 0s;
+            position:relative;
+            bottom:0%;
+            left:45%;
+            float:left;
+            width:25px;
+            height:25px;
+            border-radius:50%;
+            background-color:#3F51B5;
+            color:white;
+            text-align:center;
+            font-family:'Viner Hand ITC';
+            cursor:default;
+            
+        }
+            .slides .info:hover {
+                box-shadow:  0 0 20px  rgba(0,0,0,0.6);
+			    -moz-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+			    -webkit-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+			    -o-box-shadow: 0 0 20px  rgba(0,0,0,0.6);
+            }
+        
+        /* Tooltip container */
+        .slides .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px none black; /* If you want dots under the hoverable text */
+        }
+        
+        /* Tooltip text */
+        .slides .tooltip .tooltiptext {
+            visibility: hidden;
+            background-color: black;
+            color: #fff;
+            text-align:left;
+            padding: 5px 0;
+            border-radius: 6px;
+         
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+            width: 240px;
+            bottom: 100%;
+            left: 50%; 
+            margin-left: -120px; /* Use half of the width (120/2 = 60), to center the tooltip */
+            opacity: 0;
+            transition: opacity 1s;
+        }
+            .slides .tooltip .tooltiptext p {
+                font-family:Calibri;
+                font-size:small;
+                line-height: 10%;
+                text-align:left;
+                margin-left:10px;
+                margin-top:5px;
+            }
+        
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .slides .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .slides .tooltip .tooltiptext::after {
+            content: " ";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black transparent transparent transparent;
+        }
+</style>
+<div class="slides" ng-controller="slidesController">
+    <img ng-swipe-left="nextImg()" ng-swipe-right="prevImg()" ng-repeat="img in images track by $index" class="slide-animation" ng-src="{{img}}" ng-show="isCurrent($index)" ng-mouseover="pauseSlide()" ng-mouseleave="resumeSlide()"/>
+    <div class="arrow-left" ng-click="prevImg()"></div>
+    <div class="arrow-right" ng-click="nextImg()"></div>
+    <div class="info tooltip">i<span class="tooltiptext"><p ng-repeat="(k,v) in data">{{k}} : {{v}}<br /></p></span></div>
+</div>
